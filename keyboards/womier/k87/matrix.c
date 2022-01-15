@@ -74,8 +74,7 @@ static void init_pins(void) {
 }
 #else
 
-static void init_pins(void) {
-
+static void init_pins(void) {    
     //  Unselect ROWs
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         setPinOutput(row_pins[x]);
@@ -220,7 +219,7 @@ void matrix_init(void) {
     SN_CT16B1->MR22 = 0xFF;
 
     // Set prescale value
-    SN_CT16B1->PRE = 0x02;
+    SN_CT16B1->PRE = 0x16;
 
     //Set CT16B1 as the up-counting mode.
 	SN_CT16B1->TMRCTRL = (mskCT16_CRST);
@@ -310,6 +309,7 @@ OSAL_IRQ_HANDLER(SN32_CT16B1_HANDLER) {
             // Disable the column
             writePinHigh(row_pins[row_index]);
         }
+
     }
 
     uint8_t row_idx = hw_row_to_matrix_row[current_row];
